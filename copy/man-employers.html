@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard - My Jobs</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your main CSS -->
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="img/logo.png" alt="KonekTra Logo"></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h4>Welcome Admin!</h4>
+            <ul class="sidebar-nav">
+                <li><a href="overview.html"><i class="fas fa-home"></i> Overview</a></li>
+                <li><a href="#"><i class="fas fa-user"></i> Manage Applicants</a></li>
+                <li class="active"><a href="#"><i class="fas fa-building"></i> Manage Employers</a></li>
+                <li><a href="#"><i class="fas fa-briefcase"></i> Manage Jobs</a></li>
+                <li><a href="#"><i class="fas fa-file-alt"></i> Reports</a></li>
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2>Employers</h2>
+
+            <!-- Job List Table -->
+            <table class="job-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Company Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Yannie Wihera</td>
+                        <td>Pending</td>
+                        <td>CURA Corporation</td>
+                        <td>
+                            <button class="view-btnn">View</button>
+                            <button class="view-btnn">Approve</button>
+                            <button class="delete-btnn">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Yannie Wihera</td>
+                        <td>Pending</td>
+                        <td>CURA Corporation</td>
+                        <td>
+                            <button class="view-btnn">View</button>
+                            <button class="view-btnn">Approve</button>
+                            <button class="delete-btnn">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 KonekTra. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>

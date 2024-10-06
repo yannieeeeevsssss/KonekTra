@@ -1,0 +1,536 @@
+.bg-main {
+	background: linear-gradient(0deg,rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(../img/bgg.jpg) no-repeat center center fixed !important; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover !important;
+}
+	body {
+		background-color: white;
+	  }
+  
+	  .main-header {
+		background-color: #EDEBDF;
+		padding: 10px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow */
+	  }
+	  .navbar-custom-menu a {
+		color: #2B4261;
+		font-weight:700;
+		font-size: 15px;
+	  }
+	  .navbar-custom-menu a:hover {
+		color: #2B4261;
+		font-weight:700;
+		font-size: 15px;
+		text-decoration: underline !important;
+		background-color: #EDEBDF !important; 
+	  }
+
+  
+	  .about-us-title {
+		font-size: 2.5em;
+		font-weight: bold;
+		color: #2B4261;
+		text-align: center;
+	  }
+  
+	  /* Hero Section */
+	  .content-header {
+		background-image: url('img/bgg.jpg'); 
+		background-size: cover;
+		text-align: center;
+		padding: 100px 0;
+		color: #fff;
+	  }
+  
+	  .content-header h1 {
+		font-size: 4.3em;
+		font-weight: bold;
+		color: #F5E1AC;
+	  }
+	  .content-header p {
+		font-size: 1em;
+		font-weight: 500;
+		color: #EDEBDF;
+	  }
+  
+	  /* About Us Section */
+	  .about-text {
+		color: #2B4261;
+	  }
+  
+	  .about-text h1 {
+		font-weight: bold;
+		margin-bottom: 40px;
+	  }
+  
+	  footer {
+		background-color: #EDEBDF !important;
+		color: #fff;
+		padding: 10px;
+		text-align: center !important;
+	  }
+  
+	  .logo-bg img {
+		width: 120px;
+		margin-bottom: 5px;
+	  }
+  
+	  /* Center the content in the About section */
+	  .about-section {
+		margin-top: 0; /* Ensure there is no additional margin above */
+	  }
+
+  
+	  .about-img img {
+		width: 100%;
+		border-radius: 10px;
+	  }
+.tagify {
+	display: block;
+	width: 100%;
+  }
+  
+  .tagify__tag {
+	background-color: #28a745;
+	color: white;
+	border-radius: 8px;
+	padding: 5px 10px;
+	font-size: 14px;
+	margin: 5px;
+	display: inline-block;
+	position: relative;
+  }
+  
+  .tagify__tag__removeBtn {
+	position: absolute;
+	right: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 12px;
+	color: white;
+	cursor: pointer;
+  }
+  
+  .tagify__tag__removeBtn:hover {
+	color: red;
+  }
+  
+
+
+
+  /* ----signup */
+  /* Center the sign-up options container */
+  .signup-option {
+	display: flex !important;
+	justify-content: center;  /* Centers the boxes horizontally */
+	align-items: center;  /* Centers the boxes vertically */
+	margin-top: 30px;
+	flex-wrap: wrap;
+	gap: 170px;
+  }
+  
+  .signup-box {
+	background-color: white;
+	border: 2px solid #1E2F48 ;
+	border-radius: 10px;
+	text-align: center;
+	padding: 10px;
+	max-width: 300px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	flex: 1 1 300px;
+  }
+  
+  .signup-image {
+	width: 100%;
+	height: 250px;
+	border-radius: 10px;
+	max-height: 270px;
+	object-fit: cover;
+  }
+  
+  
+  .signup-btn {
+	display: inline-block;
+	padding: 15px 60px;
+	background-color: #2B4261;
+	color: white;
+	font-weight: bold;
+	border-radius: 5px;
+	font-size: 1.5rem;
+	transition: background-color 0.3s ease;
+  }
+  
+  .signup-btn:hover {
+	background-color: #14253a;
+  }
+  
+  @media (max-width: 768px) {
+	.signup-option {
+	  margin-bottom: 20px;
+	}
+  
+	.signup-box {
+	  max-width: 100%;
+	}
+  }
+  
+  @media (max-width: 576px) {
+	.signup-title {
+	  font-size: 1.2rem;
+	}
+  
+	.signup-btn {
+	  padding: 10px 30px;
+	  font-size: 1rem;
+	}
+  }
+  
+
+
+  /* --login */
+  .login-container {
+	width: 100%;
+	max-width: 900px;
+	margin: 5% auto;
+	display: flex;
+	border: 1px solid #ccc;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.left-section {
+	width: 50%;
+	background-color: #f7d9a5;
+	text-align: center;
+	padding: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.left-section img {
+	max-width: 200px;
+	margin-bottom: 20px;
+}
+
+.left-section p {
+	font-size: 1.1rem;
+	margin-bottom: 30px;
+}
+
+.right-section {
+	width: 50%;
+	padding: 40px;
+	background-color: #f2f2f2;
+}
+
+.right-section form {
+	margin-top: 20px;
+}
+
+.right-section h3 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.right-section .form-group {
+	margin-bottom: 20px;
+}
+
+.right-section .btn {
+	width: 100%;
+	background-color: #375a7f;
+	color: white;
+	padding: 10px;
+	font-size: 16px;
+	border: none;
+}
+
+.right-section .btn:hover {
+	background-color: #2d4d6b;
+}
+
+.right-section .form-footer {
+	text-align: center;
+	margin-top: 20px;
+}
+
+
+
+/* ---SEARCH BAR */
+
+.search-bar-form {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+  }
+  
+  .search-container {
+	position: relative;
+	width: 100%; /* Full width by default */
+	max-width: 400px; /* Maximum width for larger screens */
+	margin: 0 10px; /* Adds margin for smaller screens */
+  }
+  
+  .search-input {
+	width: 100%; /* Takes up full width of the container */
+	padding: 10px 45px 10px 15px;  /* Extra padding for the icon */
+	border-radius: 20px;
+	border: 2x solid #EDEBDF !important;
+	background-color: transparent;
+	font-size: 1rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-search-jobs {
+	position: absolute;
+	right: 15px;  /* Places the search icon inside the input */
+	top: 50%;
+	transform: translateY(-50%);
+	border: none;
+	background: none;
+	color: #f7d9a5;
+	font-size: 1.2rem;
+	cursor: pointer;
+  }
+  
+  .btn-search-jobs:hover {
+	color: #007BFF; /* Changes icon color on hover */
+  }
+  
+  .search-input:focus {
+	outline: none;
+	border-color: #f7d9a5;
+  }
+  
+  /* Responsive Styles */
+  
+  /* For tablets */
+  @media (max-width: 768px) {
+	.search-container {
+	  max-width: 300px; /* Slightly smaller on tablet */
+	}
+  
+	.search-input {
+	  font-size: 0.9rem; /* Slightly smaller font */
+	  padding: 8px 40px 8px 10px; /* Adjusted padding for smaller screens */
+	}
+  
+	.btn-search-jobs {
+	  font-size: 1rem; /* Smaller icon */
+	}
+  }
+  
+  /* For mobile screens */
+  @media (max-width: 576px) {
+	.search-container {
+	  max-width: 100%; /* Full width on mobile */
+	  margin: 0 10px; /* Adds margin on mobile */
+	}
+  
+	.search-input {
+	  font-size: 0.8rem; /* Even smaller font for mobile */
+	  padding: 8px 35px 8px 10px; /* Adjusted padding */
+	}
+  
+	.btn-search-jobs {
+	  font-size: 0.9rem; /* Smaller icon on mobile */
+	}
+  }
+  
+
+/* General Form Styling */
+.containers {
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+.latest-job h1 {
+    font-family: 'Poppins', sans-serif;
+    color: #1e2f48;
+    margin-bottom: 15px;
+    font-size: 40px; /* Adjust font size */
+	font-weight: 700;
+}
+
+.latest-job h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #1e2f48;
+    margin-bottom: 15px;
+    font-size: 15px; /* Adjust font size */
+	font-weight: 700;
+}
+
+.form-control {
+    border: 1px solid #1e2f48; /* Darker border color for inputs */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    padding: 10px;
+    box-shadow: none;
+}
+
+label {
+    font-size: 15px;
+    color: #1e2f48; /* Darker text color for labels */
+    margin-bottom: 5px;
+}
+
+/* Button Styling */
+.btn-flat {
+    background-color: #2b4261; /* Similar to your image */
+    color: #fff;
+    border-radius: 5px !important;
+    padding: 8px 20px;
+    font-size: 16px;
+    border: none;
+}
+
+.btn-flat:hover {
+    background-color: #1e2f48; /* Darker hover state */
+}
+
+/* Checkbox and Recaptcha Styling */
+.checkbox input {
+    margin-right: 10px;
+}
+
+/* For the terms and conditions checkbox */
+.checkbox label {
+    font-size: 14px;
+    color: #1e2f48;
+}
+
+/* Image Upload Button */
+.btn-danger {
+    background-color: #d9534f;
+    border: none;
+    font-size: 14px;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+}
+
+/* Input Fields Adjustments */
+input[type="file"] {
+    padding: 5px;
+}
+
+textarea.form-control {
+    resize: none;
+    border-radius: 8px;
+}
+
+/* Responsive Behavior */
+@media (max-width: 768px) {
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        font-size: 16px; /* Smaller headings */
+    }
+
+    .btn-flat {
+        width: 100%; /* Full-width button for mobile */
+        padding: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-control {
+        font-size: 12px;
+        padding: 8px; /* Smaller padding for inputs */
+    }
+
+    .btn-flat {
+        padding: 10px;
+        font-size: 14px; /* Smaller font for buttons */
+    }
+}
+
+    /* Sidebar Styling */
+    .main-sidebar {
+		background-color: #004080; /* Blue background */
+		color: white;
+		min-height: 100vh;
+	  }
+  
+	  .main-sidebar a {
+		color: white;
+	  }
+  
+	  .main-sidebar .user-panel {
+		color: white;
+	  }
+  
+	  /* Sidebar Collapsed Styling */
+	  .main-sidebar.collapsed {
+		width: 0;
+		overflow: hidden;
+		transition: width 0.3s ease;
+	  }
+  
+	  .content-wrapper {
+		margin-left: 230px; /* Default margin with sidebar visible */
+		transition: margin-left 0.3s ease;
+		background-color: #f4f6f9; /* Fix "foggy" content issue */
+	  }
+  
+	  .content-wrapper.collapsed {
+		margin-left: 0;
+	  }
+  
+	  /* Sidebar Menu Hover Effects */
+	  .sidebar-menu > li > a:hover {
+		background-color: #003366; /* Darker blue on hover */
+	  }
+  
+	  .sidebar-menu > li > a {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	  }
+  
+	  /* Content and Table Styling */
+	  .content-header h3 {
+		color: #333;
+		font-size: 24px;
+		margin-bottom: 20px;
+		text-align: left;
+	  }
+  
+	  table.table {
+		background-color: white;
+	  }
+  
+	  table.table th, table.table td {
+		color: #333;
+		text-align: left;
+	  }
+  
+	  table.table tbody tr:hover {
+		background-color: #f5f5f5;
+	  }
+  
+	  .collapsed .sidebar-menu > li > a > span {
+		display: none; /* Hide labels when sidebar is collapsed */
+	  }
+  
+	  .collapsed .sidebar-menu i {
+		font-size: 20px;
+	  }
+
+
+/* ---admin */
+/* Sidebar Styling */
+
+
+
+

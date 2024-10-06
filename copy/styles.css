@@ -1,0 +1,1542 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #EDEBDF; /* Header background */
+    padding: 15px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav {
+    display: flex;
+    align-items: center; /* Align nav and profile image in the same line */
+}
+
+header .logo img {
+    width: 150px; /* Smaller logo */
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+header nav ul li {
+    display: flex;
+    align-items: center; /* Align text vertically in nav links */
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #2B4261; /* Blue for links */
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+header nav ul li a:hover {
+    color: #2B4261; /* Keep link color but add underline on hover */
+    text-decoration: underline;
+}
+
+.hero {
+    height: 80vh;
+    background: url('img/bgg.jpg') no-repeat center center/cover;
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.hero .overlay {
+    padding: 30px;
+    width: 100%;
+}
+
+.hero h2 {
+    font-size: 4.3rem;
+    color: #F5E1AC; /* Hero header color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow */
+}
+
+.hero p {
+    font-size: 23px;
+    margin-bottom: 18px;
+    color: #EDEBDF;
+    padding: 20px;
+}
+
+/* Search Bar Styles */
+.search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Adjust the max width as needed */
+    margin: 0 auto;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px 40px 10px 15px; /* Adjust padding for space around the icon */
+    border: 1px solid #EDEBDF;
+    border-radius: 25px; /* Rounded edges */
+    font-size: 16px;
+    outline: none;
+    box-shadow: none;
+}
+
+.search-bar i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #003366; /* Change icon color */
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Optional: Search bar hover effect */
+.search-bar input:hover {
+    border-color: #003366; /* Highlight border on hover */
+}
+
+.search-bar input:focus {
+    border-color: #003366; /* Highlight border when focused */
+}
+
+.about-us {
+    background-color: #f4f4f4;
+    padding: 10px 0;
+    color: #333;
+}
+
+.about-us .about-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.about-us img {
+    width: 400px; /* Bigger TESDA image */
+    height: auto;
+}
+
+.about-us .text {
+    flex: 1;
+}
+
+.about-us h3 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.about-us p, .about-us ul {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.about-us h4 {
+    margin-bottom: 10px;
+    color: #2B4261; /* Blue for sub-headings */
+}
+
+.about-us ul {
+    list-style-type: none;
+}
+
+.about-us ul li {
+    margin-bottom: 10px;
+}
+
+.about-us ul li strong {
+    color: #2B4261; /* Blue for links */
+    text-decoration: underline; /* Underlined for links */
+}
+
+footer {
+    background-color: #EDEBDF; /* Footer background */
+    color: #333;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    margin: 0;
+}
+/* Login Page Styles */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 45px;
+}
+
+.login-container {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    background-color: #f9f9f9;
+}
+
+.left-box {
+    background-color: #F5E1AC;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Center horizontally */
+    text-align: center;
+    padding: 20px;
+}
+
+.left-box img {
+    width: 300px;
+    margin-bottom: 20px;
+    border-radius: 15px; /* Rounded corners for the image */
+}
+
+
+.left-box p {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+.left-box a {
+    color: #2B4261;
+    text-decoration: none;
+}
+
+.left-box a:hover {
+    text-decoration: underline;
+}
+
+.right-box {
+    padding: 40px;
+    width: 50%;
+    background-color: #EDEBDF;
+    border-left: 1px solid #ccc;
+    text-align: center;
+}
+
+.right-box h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.right-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.right-box label {
+    font-size: 0.9rem;
+    color: #333;
+    align-self: self-start;
+    font-weight: 700;
+}
+
+.right-box input[type="email"],
+.right-box input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background-color: #2B4261;
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #223a53;
+}
+.signup-options {
+    padding: 50px 0;
+    text-align: center;
+    flex-grow: 1; /* Ensures this section grows to fill the space */
+}
+
+.signup-options .container {
+    display: flex;
+    justify-content: center;
+}
+
+.box-wrapper {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.signup-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 300px;
+    border: #1E2F48 solid 2px;
+}
+
+.signup-box img {
+    width: 100%; /* Forces the images to match the box width */
+    height: 250px; /* Forces uniform height */
+    object-fit: cover; /* Ensures images are cropped uniformly to fit the box */
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.signup-box a {
+    display: block;
+    background-color: #2B4261;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.signup-box a:hover {
+    background-color: #1E2F48;
+}
+
+/* Form Styles */
+/* Signup Form Section */
+.signup-form {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+
+}
+
+.signup-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #003366;
+}
+
+/* Fieldset Styling */
+.signup-form fieldset {
+    border: 1px solid #cfcfcf;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fcf7e6;
+}
+
+/* Legend Styling */
+.signup-form legend {
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* Form Group for Input Fields */
+.signup-form .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Input Styling */
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"],
+.signup-form input[type="number"],
+.signup-form input[type="tel"],
+.signup-form input[type="date"],
+.signup-form select,
+.signup-form textarea {
+    width: calc(33.33% - 10px);
+    padding: 10px;
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.signup-form textarea {
+    width: calc(100% - 10px);
+    resize: vertical;
+}
+
+.signup-form input[type="file"] {
+    padding: 5px;
+}
+
+/* File Input Styling */
+.signup-form .form-group input[type="file"],
+.signup-form .form-group label {
+    width: calc(50% - 10px);
+}
+
+/* Full-width elements */
+.signup-form input[type="checkbox"],
+.signup-form .form-group textarea,
+.signup-form .form-group button {
+    width: 100%;
+}
+
+/* Add more button styling */
+.signup-form button[type="button"] {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.signup-form button[type="button"]:hover {
+    background-color: #0057a4;
+}
+
+/* Terms and Conditions */
+.signup-form .form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Submit Button Styling */
+.signup-form button[type="submit"] {
+    background-color: #003366;
+    color: white;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+.signup-form button[type="submit"]:hover {
+    background-color: #0057a4;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+    .signup-form .form-group input[type="text"],
+    .signup-form .form-group input[type="email"],
+    .signup-form .form-group input[type="password"],
+    .signup-form .form-group input[type="number"],
+    .signup-form .form-group input[type="tel"],
+    .signup-form .form-group input[type="date"],
+    .signup-form .form-group select {
+        width: calc(50% - 10px);
+    }
+
+    .signup-form .form-group input[type="file"],
+    .signup-form .form-group label {
+        width: 100%;
+    }
+
+    .signup-form textarea {
+        width: 100%;
+    }
+
+    /* Stack fields vertically for smaller screens */
+    .signup-form fieldset {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .signup-form .form-group input[type="text"],
+    .signup-form .form-group input[type="email"],
+    .signup-form .form-group input[type="password"],
+    .signup-form .form-group input[type="number"],
+    .signup-form .form-group input[type="tel"],
+    .signup-form .form-group input[type="date"],
+    .signup-form .form-group select {
+        width: 100%;
+    }
+}
+
+
+/* Signup Form Section for Employees */
+.signup-form-employee {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.signup-form-employee h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #003366;
+}
+
+/* Fieldset Styling */
+.signup-form-employee fieldset {
+    border: 1px solid #cfcfcf;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fcf7e6;
+}
+
+/* Legend Styling */
+.signup-form-employee legend {
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* Form Group for Input Fields */
+.signup-form-employee .form-group-employee {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Input Styling */
+.signup-form-employee input[type="text"],
+.signup-form-employee input[type="email"],
+.signup-form-employee input[type="password"],
+.signup-form-employee input[type="number"],
+.signup-form-employee input[type="tel"],
+.signup-form-employee input[type="date"],
+.signup-form-employee select,
+.signup-form-employee textarea {
+    width: calc(33.33% - 10px);
+    padding: 10px;
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.signup-form-employee textarea {
+    width: calc(100% - 10px);
+    resize: vertical;
+}
+
+.signup-form-employee input[type="file"] {
+    padding: 5px;
+}
+
+/* File Input Styling */
+.signup-form-employee .form-group-employee input[type="file"],
+.signup-form-employee .form-group-employee label {
+    width: calc(50% - 10px);
+}
+
+/* Full-width elements */
+.signup-form-employee input[type="checkbox"],
+.signup-form-employee .form-group-employee textarea,
+.signup-form-employee .form-group-employee button {
+    width: 100%;
+}
+
+/* Submit Button Styling */
+.signup-form-employee button[type="submit"] {
+    background-color: #003366;
+    color: white;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+.signup-form-employee button[type="submit"]:hover {
+    background-color: #0057a4;
+}
+
+/* Terms and Conditions */
+.signup-form-employee .form-group-employee input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+    .signup-form-employee .form-group-employee input[type="text"],
+    .signup-form-employee .form-group-employee input[type="email"],
+    .signup-form-employee .form-group-employee input[type="password"],
+    .signup-form-employee .form-group-employee input[type="number"],
+    .signup-form-employee .form-group-employee input[type="tel"],
+    .signup-form-employee .form-group-employee input[type="date"],
+    .signup-form-employee .form-group-employee select {
+        width: calc(50% - 10px);
+    }
+
+    .signup-form-employee .form-group-employee input[type="file"],
+    .signup-form-employee .form-group-employee label {
+        width: 100%;
+    }
+
+    .signup-form-employee textarea {
+        width: 100%;
+    }
+
+    /* Stack fields vertically for smaller screens */
+    .signup-form-employee fieldset {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .signup-form-employee .form-group-employee input[type="text"],
+    .signup-form-employee .form-group-employee input[type="email"],
+    .signup-form-employee .form-group-employee input[type="password"],
+    .signup-form-employee .form-group-employee input[type="number"],
+    .signup-form-employee .form-group-employee input[type="tel"],
+    .signup-form-employee .form-group-employee input[type="date"],
+    .signup-form-employee .form-group-employee select {
+        width: 100%;
+    }
+
+    .signup-form-employee textarea {
+        width: 100%;
+    }
+}
+
+header .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 15px; /* Add some space between the last nav link and the profile image */
+}
+
+/* Main Container */
+.main-container {
+    display: flex;
+    padding: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    background-color: #002C71; /* Dark blue for sidebar */
+    padding-top: 20px;
+    color: white;
+}
+
+.sidebar h4 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-nav li {
+    padding: 15px 20px;
+    border-bottom: 1px solid #E0E0E0; /* Thin line between sections */
+}
+
+.sidebar-nav li:hover {
+    cursor: pointer;
+    border-left: 7px solid #ebe0c0; /* Thick yellow border on the left */
+}
+
+.sidebar-nav li.active {
+    border-left: 5px solid #ebe0c0; /* Indicate active state with yellow border */
+}
+
+.sidebar-nav a {
+    color: #ebe0c0;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #EDEBDF;
+    border-radius: 10px;
+    margin-right: 20px;
+    border-color: #002C71;
+    color: #1A3B5D;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-info h2 {
+    margin: 0;
+}
+
+.profile-info p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.edit-btn {
+    margin-left: auto;
+    background-color: #002C71;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Section styling */
+.section {
+    margin-bottom: 20px;
+    background-color: #ebe0c0;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.section h5 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.section p.text-muted {
+    color: #888;
+}
+
+/* Comments Section */
+.comments .comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.comment-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-text {
+    flex-grow: 1;
+}
+
+.comment-form {
+    display: flex;
+    align-items: center;
+}
+
+.comment-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.comment-form button {
+    background-color: #1A3B5D;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Uploaded Images Section */
+.image-gallery {
+    display: flex;
+    gap: 10px;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.image-placeholder {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F0F0F0;
+    border-radius: 10px;
+    font-size: 2rem;
+    color: #ccc;
+}
+
+/* Right Sidebar Info */
+.info-sidebar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: #ebe0c0;
+    border-radius: 10px;
+}
+
+.info-block {
+    background-color: #ebe0c0;
+    padding: 10px;
+    border-radius: 10px;
+    color: #1A3B5D;
+    text-align:start;
+    border: 2px solid #1c2635;
+}
+
+/* My Applications Section */
+/* Sidebar Navigation */
+
+.main-container {
+    display: flex;
+}
+
+.main-content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.main-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #143a6c;
+}
+
+/* Job Card */
+.job-cardd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f6f1e9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.job-cardd .job-info {
+    display: flex;
+    align-items: center;
+}
+
+.job-logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.job-details h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #143a6c;
+}
+
+.job-details p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.job-status.pending {
+    color: #ff9800;
+}
+
+.job-status.rejected {
+    color: #f43636;
+}
+
+.job-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    background-color: #143a6c;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn.view-btn {
+    background-color: #143a6c;
+}
+
+.btn.withdraw-btn {
+    background-color: #ff0000;
+}
+
+
+/* Notifications Page Styling */
+#notifications-content {
+    padding: 20px;
+    background-color: #fcf9f3;
+}
+
+#notifications-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures spacing between elements */
+    background-color: #ebe0c0;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+}
+
+.notification-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.notification-text {
+    flex-grow: 1; /* Allows the text to take available space */
+}
+
+.notification-text h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333333;
+}
+
+.notification-text p {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    color: #666666;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #666666;
+    margin-left: 15px; /* Adds spacing between text and button */
+}
+
+.delete-btn:hover {
+    color: #ff4c4c;
+}
+
+/* Main content styling */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.main-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Dashboard cards */
+.dashboard-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card i {
+    font-size: 36px;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #003366;
+}
+
+.card p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+/* Post a Job form styling */
+.post-job-form {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.post-job-form .form-group {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.post-job-form input[type="text"], .post-job-form select, .post-job-form input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.post-job-form img {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.job-types {
+    display: flex;
+    gap: 20px;
+}
+
+.job-types label {
+    display: flex;
+    align-items: center;
+}
+
+.post-btn {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-btn:hover {
+    background-color: #002244;
+}
+
+
+/* Job Table Styling */
+.job-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.job-table th, .job-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.job-table th {
+    background-color: #f0f0f0;
+}
+
+.job-table td {
+    background-color: #fff;
+}
+
+.view-btn, .delete-btn {
+    background-color: #003366;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.view-btn:hover, .delete-btn:hover {
+    background-color: #002244;
+}
+
+/* Applicant Card Styling */
+.applicant-card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    width: 45%;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.applicant-card img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.applicant-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.download-btn, .hire-btn {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    margin-top: 10px;
+}
+
+.download-btn:hover, .hire-btn:hover {
+    background-color: #002244;
+}
+
+
+/* Dashboard Cards */
+.overview-card {
+    background-color: #f4f4f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: box-shadow 0.3s ease;
+}
+
+.overview-card i {
+    font-size: 40px;
+    color: #003366;
+}
+
+.overview-details {
+    text-align: right;
+}
+
+.overview-details h3 {
+    font-size: 18px;
+    color: #003366;
+}
+
+.overview-details p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #003366;
+}
+
+.overview-card:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.main-content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.main-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #003366;
+}
+
+.dashboard-overview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+  .main-container {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  /* Filters Section */
+  .filters-section {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .filter-header {
+    margin-bottom: 20px;
+  }
+  
+  .filter-header h3 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .filter-header select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Align checkboxes in two columns */
+  .checkbox-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .checkbox-container label {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .search-button {
+    margin-top: 20px;
+  }
+  
+  .search-button button {
+    width: 100%;
+    background-color: #1f3b72;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-button button:hover {
+    background-color: #163061;
+  }
+  
+  /* Job Cards Section */
+  .job-cards-section {
+    flex: 2;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .job-card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Fit 2 cards per row */
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .job-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-self: self-start;
+  }
+  
+  .company-logo {
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
+    margin-right: 10px;
+  }
+  
+  .job-info {
+    display: list-item;
+    align-self: self-start;
+  }
+  
+  .job-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .company-name {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .job-location {
+    font-size: 14px;
+    color: #777;
+  }
+  
+
+  
+  .job-details {
+    align-self: self-start;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .job-details p {
+    margin: 5px 0;
+  }
+  
+
+  .view-btn, .apply-btn {
+    background-color: #1f3b72;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .view-btn:hover, .apply-btn:hover {
+    background-color: #163061;
+  }
+  
+  .dot {
+    margin: 0 5px;
+  }
+  
+  /* Responsive Layout */
+  @media (max-width: 768px) {
+    .main-container {
+      flex-direction: column;
+    }
+  
+    .filters-section {
+      margin-bottom: 20px;
+    }
+  
+    .job-card-container {
+      grid-template-columns: 1fr; /* One card per row on smaller screens */
+    }
+  }
+
+
+  /* Main container holding job details and sidebar */
+.job-view-container {
+    display: flex;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Left side job details */
+.job-detail {
+    flex: 2;
+    margin-right: 20px;
+    padding: 20px;
+    background-color: #ffebcd;
+    border-radius: 8px;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.company-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.job-info {
+    flex: 1;
+}
+
+.job-info h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #2B4261;
+}
+
+.job-info p {
+    margin: 5px 0;
+    color: #4B4B4B;
+}
+
+.job-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.message-btn, .apply-btn {
+    padding: 10px 20px;
+    background-color: #2B4261;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.apply-btn {
+    background-color: #00509E;
+}
+
+/* Job description section */
+.job-description {
+    margin-top: 20px;
+}
+
+.job-description h3 {
+    font-size: 1.25rem;
+    color: #2B4261;
+}
+
+.job-description p {
+    margin: 10px 0;
+    color: #4B4B4B;
+}
+
+/* Right side sidebar */
+.job-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.job-date, .job-salary, .job-type {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+    font-weight: 700;
+    color: #2B4261;
+}
+
+.job-date .date-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.job-date h4 {
+    margin: 0;
+    color: #2B4261;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.job-date p {
+    margin: 0;
+    color: #4B4B4B;
+
+}
+
+.job-salary h4 {
+    color: #2B4261;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.job-type h4 {
+    color: #2B4261;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #f4e3c3;
+    border-bottom: none;
+}
+
+.modal-title {
+    font-weight: bold;
+    color: #003366;
+}
+
+.modal-body label {
+    font-weight: bold;
+    color: #003366;
+}
+
+.modal-body .form-control-file {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f4f4f9;
+}
+
+.modal-body textarea {
+    border-radius: 5px;
+    border: 1px solid #003366;
+    background-color: #f4f4f9;
+}
+
+.modal-footer .btn {
+    background-color: #003366;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #f4e3c3;
+    color: #003366;
+}
+
+
