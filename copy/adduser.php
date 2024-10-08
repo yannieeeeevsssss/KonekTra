@@ -190,7 +190,7 @@ try {
     $mail->Subject = 'KonekTra - Confirm Your Email Address';
 
     // Compose the verification email
-    $verification_link = 'http://localhost/copy/verify.php?token=' . $hash . '&email=' . $email;
+    $verification_link = 'http://localhost/KonekTra/copy/verify.php?token=' . $hash . '&email=' . $email;
     $mail->Body = '<html><body><p>Click the following link to confirm your email address:</p>';
     $mail->Body .= '<a href="' . $verification_link . '">Verify Email</a></body></html>';
 

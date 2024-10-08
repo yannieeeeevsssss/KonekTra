@@ -40,6 +40,36 @@ if (isset($_SESSION['id_user'])) {
 
     $stmt->close();
 }
+
+// Fetch the resume for the user
+$query = "SELECT resume FROM applicants WHERE id_user = ?";
+$stmt = $conn->prepare($query);
+
+// Check for successful preparation
+if ($stmt === false) {
+    die("MySQL prepare statement failed: " . $conn->error);
+}
+
+// Use the correct variable $user_id
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$stmt->bind_result($resume);
+
+// Fetch the result
+$stmt->fetch();
+
+$stmt->close();
+
+
+// Fetch jobs and employer information including city
+$jobs_query = "
+    SELECT jobs.*, employers.company_name, cities.city_name 
+    FROM jobs 
+    JOIN employers ON jobs.id_employer = employers.id_employer
+    LEFT JOIN cities ON employers.id_city = cities.id_city
+";
+$jobs_result = $conn->query($jobs_query);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -177,115 +207,108 @@ if (isset($_SESSION['id_user'])) {
     </div>
   </div>
 
+
   <!-- Job Cards Section -->
   <section class="grid grid-cols-1 md:grid-cols-2 px-5 mx-5 gap-8">
 
-    <!-- Job Cards-->
-  <div class="bg-yellow-50 rounded-lg shadow-lg p-6 relative">
-  <!-- Job Info and Logo Section -->
-  <div class="flex">
-    <!-- Company Logo -->
-    <img src="img/company.png" alt="Company Logo" class="w-20 h-20 rounded mr-4">
+    <?php if ($jobs_result->num_rows > 0) { 
+        // Loop through each job and generate a card
+        while($job = $jobs_result->fetch_assoc()) { ?>
     
-    <!-- Job Title, Company Name, and Location (Beside the image) -->
-    <div>
-    <h4 class="text-2xl font-bold">Front Desk Officer</h4>
-    <p class="text-gray-600">
-      <i class="fas fa-building mr-2"></i> ABC Hotel Inc.
-    </p>
-    <p class="text-gray-500">
-      <i class="fas fa-map-marker-alt mr-2"></i> Abuyog, Leyte
-    </p>
-    </div>
-  </div>
+        <div class="bg-yellow-50 rounded-lg shadow-lg p-6 relative">
+          <!-- Job Info and Logo Section -->
+          <div class="flex">
+            <!-- Company Logo -->
+            <img src="img/company.png" alt="Company Logo" class="w-20 h-20 rounded mr-4">
+            
+            <!-- Job Title, Company Name, and Location (Beside the image) -->
+            <div>
+              <h4 class="text-2xl font-bold"><?= htmlspecialchars($job['job_title']); ?></h4>
+              <p class="text-gray-600">
+                <i class="fas fa-building mr-2"></i> <?= htmlspecialchars($job['company_name']); ?>
+              </p>
+              <p class="text-gray-500">
+                <i class="fas fa-map-marker-alt mr-2"></i> <?= htmlspecialchars($job['city_name']); ?>
+              </p>
+            </div>
+          </div>
 
-  <!-- Salary, Job Type, and Application Deadline (Under the image) -->
-  <div class="mt-4">
-  <p class="text-gray-500"><i class="fas fa-money-bill-wave mr-1"></i> ₱18,000 - ₱20,000</p>
-    <p class="text-gray-500"><i class="fas fa-clock mr-1"></i> Full-Time • On-site</p>
-    <p class="text-gray-500"><i class="fas fa-calendar-alt mr-1"></i> Apply before Sept 19</p>
-  </div>
+          <!-- Salary, Job Type, and Application Deadline (Under the image) -->
+          <div class="mt-4">
+            <p class="text-gray-500">
+              <i class="fas fa-money-bill-wave mr-1"></i> ₱<?= number_format($job['min_salary'], 2); ?> - ₱<?= number_format($job['max_salary'], 2); ?>
+            </p>
+            <p class="text-gray-500">
+              <i class="fas fa-clock mr-1"></i> <?= htmlspecialchars($job['job_type']); ?>
+            </p>
+            <p class="text-gray-500">
+              <i class="fas fa-calendar-alt mr-1"></i> Apply before <?= date('F j, Y', strtotime($job['deadline'])); ?>
+            </p>
+          </div>
 
-  <!-- Date Posted (top right) -->
-  <p class="absolute top-2 right-2 text-gray-500 text-sm">Posted 3 days ago</p>
+          <!-- Date Posted (top right) -->
+          <p class="absolute top-2 right-2 text-gray-500 text-sm">
+            Posted on <?= date('F j, Y', strtotime($job['created_at'])); ?>
+          </p>
 
-  <!-- Buttons Section (Centered below) -->
-  <div class="mt-6 flex justify-between gap-4">
-  <a href="viewjob.php" class="bg-indigo-900 text-white py-2 flex-1 text-center rounded hover:bg-blue-800 hover:no-underline">View Job</a>
-  <a href="#" class="bg-indigo-900 text-white py-2 flex-1 text-center rounded hover:bg-blue-800 hover:no-underline" data-toggle="modal" data-target="#applyModal">Apply</a>
-</div>
-</div>
+          <!-- Buttons Section (Centered below) -->
+          <div class="mt-6 flex justify-between gap-4">
+            <a href="viewjob.php?id=<?= $job['id_jobs']; ?>" class="bg-indigo-900 text-white py-2 flex-1 text-center rounded hover:no-underline hover:bg-blue-800">View Job</a>
+            <?php if ($logged_in && $row['user_type'] === 'applicant') { ?>
+    <a href="#" class="bg-indigo-900 text-white py-2 flex-1 text-center rounded hover:bg-blue-800 hover:no-underline" data-toggle="modal" data-target="#applyModal">Apply</a>
+<?php } else { ?>
+    <button class="bg-gray-400 text-white py-2 flex-1 text-center rounded cursor-not-allowed" disabled>Apply</button>
+<?php } ?>
+          </div>
+        </div>
 
-
-
-     <!-- Job Cards-->
-  <div class="bg-yellow-50 rounded-lg shadow-lg p-6 relative">
-  <!-- Job Info and Logo Section -->
-  <div class="flex">
-    <!-- Company Logo -->
-    <img src="img/company.png" alt="Company Logo" class="w-20 h-20 rounded mr-4">
-    
-    <!-- Job Title, Company Name, and Location (Beside the image) -->
-    <div>
-    <h4 class="text-2xl font-bold">Front Desk Officer</h4>
-    <p class="text-gray-600">
-      <i class="fas fa-building mr-2"></i> ABC Hotel Inc.
-    </p>
-    <p class="text-gray-500">
-      <i class="fas fa-map-marker-alt mr-2"></i> Abuyog, Leyte
-    </p>
-    </div>
-  </div>
-
-  <!-- Salary, Job Type, and Application Deadline (Under the image) -->
-  <div class="mt-4">
-  <p class="text-gray-500"><i class="fas fa-money-bill-wave mr-1"></i> ₱18,000 - ₱20,000</p>
-    <p class="text-gray-500"><i class="fas fa-clock mr-1"></i> Full-Time • On-site</p>
-    <p class="text-gray-500"><i class="fas fa-calendar-alt mr-1"></i> Apply before Sept 19</p>
-  </div>
-
-  <!-- Date Posted (top right) -->
-  <p class="absolute top-2 right-2 text-gray-500 text-sm">Posted 3 days ago</p>
-
-  <!-- Buttons Section (Centered below) -->
-  <div class="mt-6 flex justify-between gap-4">
-  <a href="viewjob.php" class="bg-indigo-900 text-white py-2 flex-1 text-center rounded hover:bg-blue-800 hover:no-underline">View Job</a>
-  <a href="#" class="bg-indigo-900 text-white py-2 flex-1 text-center rounded hover:bg-blue-800 hover:no-underline" data-toggle="modal" data-target="#applyModal">Apply</a>
-</div>
-</div>
-
-    <!-- Repeat for more Job Cards as necessary -->
+    <?php } 
+    } else { ?>
+        <p class="text-center text-gray-500">No jobs found.</p>
+    <?php } ?>
 
   </section>
 </div>
 
-<!-- Apply Job Modal -->
 <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="applyModalLabel">Apply for Job</h5>
+                <h5 class="modal-title font-bold text-indigo-900 text-xl" id="applyModalLabel">Apply for Job</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <!-- Resume Upload -->
+                <form action="applications.php" method="POST" enctype="multipart/form-data">
+                    <!-- Hidden input for job ID -->
+                    <input type="hidden" name="job_id" value="123"> <!-- Replace 123 with dynamic job ID -->
+
                     <div class="form-group">
-                        <label for="resume">Upload Resume</label>
-                        <input type="file" class="form-control-file" id="resume">
-                    </div>
+    <?php if (!empty($resume)): ?>
+          
+    <label for="resume" class="font-semibold text-blue-900">Upload Resume</label>
+        <p class="text-sm text-gray-600">You have already uploaded a resume: 
+            <a href="/uploads/resume/<?php echo htmlspecialchars($resume); ?>" target="_blank" class="text-blue-500 underline">
+                View your resume
+            </a>
+        </p>
+        <p class="text-sm text-gray-600">You can upload a new resume if you want to replace the existing one.</p>
+    <?php endif; ?>
+    <input type="file" class="form-control-file" id="resume" name="resume">
+</div>
                     <!-- Cover Letter Textarea -->
                     <div class="form-group">
-                        <label for="coverLetter">Cover Letter</label>
-                        <textarea class="form-control" id="coverLetter" rows="3" placeholder="Why should we hire you?"></textarea>
+                        <label for="coverLetter" class="font-semibold text-blue-900">Cover Letter</label>
+                        <textarea class="form-control" id="coverLetter" name="cover_letter" rows="3" placeholder="Why should we hire you?" required></textarea>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-500 font-bold" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="bg-indigo-900 text-white py-2 px-4 rounded hover:bg-blue-800 font-bold">Apply</button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Apply</button>
             </div>
         </div>
     </div>

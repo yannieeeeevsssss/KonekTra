@@ -131,8 +131,8 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
 
 
                 <!-- Confirm Password field with toggle eye icon -->
-                <div class="relative mb-4 border border-dark rounded">
-                  <input class="w-full p-2 border border-dark rounded pr-10" type="password" id="cpassword" name="cpassword" placeholder="Confirm Password *" required oninput="comparePasswords()">
+                <div class="relative mb-4 rounded">
+                  <input class="w-full p-2 border-2 border-dark rounded pr-10" type="password" id="cpassword" name="cpassword" placeholder="Confirm Password *" required oninput="comparePasswords()">
                   <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onclick="togglePasswordVisibility('cpassword', 'cpassword-icon')">
                     <i id="cpassword-icon" class="fas fa-eye text-gray-500"></i>
                   </span>
@@ -142,15 +142,15 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
             
             <!-- Company Information Section -->
             <div>
-                <h3 class="text-xl text-blue-900 font-bold mb-4">Company Information(Optional)</h3>
+                <h3 class="text-xl text-blue-900 font-bold mb-4">Company Information</h3>
                 <div class="mb-4 border border-dark rounded">
-                    <input class="w-full p-2 border border-dark rounded" type="text" id="company_name" name="company_name" placeholder="Company Name" required>
+                    <input class="w-full p-2 border border-dark rounded" type="text" id="company_name" name="company_name" placeholder="Company Name(Optional)" required>
                 </div>
                 <div class="mb-4 border border-dark rounded">
                 <input class="w-full p-2 border border-dark rounded" type="text" name="regno" placeholder="Registration No" required>
                 </div>
                 <div class="mb-4 border border-dark rounded">
-                    <input class="w-full p-2 border border-dark rounded" type="text" id="contactno" name="contactno" minlength="10" maxlength="15" placeholder="Contact No *" required>
+                    <input class="w-full p-2 border border-dark rounded" type="text" id="contactno" name="contactno" minlength="10" maxlength="11" placeholder="Contact No *" required>
                 </div>
                 <div class="mb-4 border border-dark rounded">
                     <input class="w-full p-2 border border-dark rounded" type="email" id="email" name="email" placeholder="Email *" required>

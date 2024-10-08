@@ -36,8 +36,11 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-INSERT INTO `users` (`email`, `password`, `profile_image`, `user_type`, `active`, `status`)
-VALUES ('admin@gmail.com', 'admin', '', 'admin', 1, 'Active');
+INSERT INTO `users` (`id_user`, `email`, `password`, `profile_image`, `user_type`, `hash`, `active`, `approved_at`, `created_at`, `status`) VALUES
+(1, 'admin@gmail.com', 'admin', '', 'admin', NULL, 1, NULL, '2024-10-04 12:51:14', 'Active'),
+(15, 'yanniewritess1@gmail.com', 'MDdiNDMyZDI1MTcwYjQ2OWI1NzA5NWNhMjY5YmMyMDI=', '6702657b8737b.jpg', 'employer', '89b09427baee2237f1b2c1b7abfb7284', 1, NULL, '2024-10-06 18:24:59', 'Active'),
+(20, '1mae2ann@gmail.com', 'ZGM3NzIxMjU3NGFjMTE0MWVlMTQ1N2Y3NGVmOWYyYmE=', '6703f66f92683.jpg', 'employer', '98a2a2ca113912ac3836ede3879fdec7', 1, NULL, '2024-10-07 22:55:43', 'Active');
+
 
 -- --------------------------------------------------------
 -- Table structure for table `provinces`
@@ -127,6 +130,10 @@ CREATE TABLE `employers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+INSERT INTO `employers` (`id_employer`, `id_user`, `firstname`, `middlename`, `lastname`, `gender`, `dob`, `age`, `street`, `id_city`, `id_province`, `contactno`, `email`, `company_name`, `registration_no`, `aboutme`) VALUES
+(2, 15, 'Mae Ann Jean', 'Macabutas', 'Anol', 'Female', '2005-02-06', 19, 'L23B23 North Hill Arbours', 1, 1, '0926543302', 'yanniewritess1@gmail.com', 'KonekTra', '45656', 'dasdkawodpwd'),
+(6, 20, 'Mae Ann Jean', 'Macabutas', 'Anol', 'Female', '2002-03-07', 22, 'L23B23 North Hill Arbours', 1, 1, '0926543302', '1mae2ann@gmail.com', 'KonekTra', '45656', 'fdsafgsrthtd');
+
 CREATE TABLE `certificates` (
   `id_certificate` int(11) NOT NULL AUTO_INCREMENT,
   `certificate_name` varchar(255) NOT NULL,
@@ -152,6 +159,35 @@ CREATE TABLE `certifications` (
   FOREIGN KEY (`id_applicant`) REFERENCES `applicants`(`id_applicant`) ON DELETE CASCADE,
   FOREIGN KEY (`id_certificate`) REFERENCES `certificates`(`id_certificate`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `jobs` (
+  `id_jobs` int(11) NOT NULL AUTO_INCREMENT,
+  `id_employer` int(11) NOT NULL,
+  `job_title` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `min_salary` decimal(10,2),
+  `max_salary` decimal(10,2),
+  `job_type` set('Task Based', 'Full-Time', 'On-Site', 'Remote') NOT NULL,
+  `deadline` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_jobs`),
+  FOREIGN KEY (`id_employer`) REFERENCES `employers`(`id_employer`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `applications` (
+  `id_application` int(11) NOT NULL AUTO_INCREMENT,
+  `id_job` int(11) NOT NULL,
+  `id_applicant` int(11) NOT NULL,
+  `resume` varchar(255) NOT NULL,
+  `cover_letter` text,
+  `status` enum('Pending', 'Approved', 'Rejected') NOT NULL DEFAULT 'Pending',
+  `applied_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_application`),
+  FOREIGN KEY (`id_job`) REFERENCES `jobs`(`id_jobs`) ON DELETE CASCADE,
+  FOREIGN KEY (`id_applicant`) REFERENCES `applicants`(`id_applicant`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 COMMIT;

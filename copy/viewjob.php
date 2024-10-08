@@ -40,6 +40,30 @@ if (isset($_SESSION['id_user'])) {
 
     $stmt->close();
 }
+if (isset($_GET['id'])) {
+    $job_id = $_GET['id'];
+
+    $job_query = "
+        SELECT jobs.*, employers.company_name, employers.email AS employer_email, employers.contactno, cities.city_name 
+        FROM jobs 
+        JOIN employers ON jobs.id_employer = employers.id_employer
+        LEFT JOIN cities ON employers.id_city = cities.id_city
+        WHERE jobs.id_jobs = ?
+    ";
+    
+    $stmt = $conn->prepare($job_query);
+    $stmt->bind_param("i", $job_id);
+    $stmt->execute();
+    $job_result = $stmt->get_result();
+    $job = $job_result->fetch_assoc();
+    $stmt->close();
+}
+
+if (!$job) {
+    // If no job is found, redirect to jobs.php
+    header("Location: jobs.php");
+    exit;
+}
 ?>
 
 
@@ -141,88 +165,91 @@ if (isset($_SESSION['id_user'])) {
     
     <!-- Job View Container -->
     <div class="container mx-auto py-8 flex justify-between space-x-8">
-        <!-- Job Detail Section -->
-        <div class="w-2/3 bg-yellow-50 p-6 rounded-lg shadow-lg">
-            <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center space-x-4">
-                    <a href="prof-comp.html">
-                        <img src="img/company.png" alt="Company Logo" class="w-20 h-20 rounded-md">
-                    </a>
-                    <div>
-                        <h2 class="text-2xl font-bold text-indigo-900">Front Desk Officer</h2>
-                        <p class="text-gray-500 font-semibold"><i class="fas fa-building mr-1"></i>CURA Corporation</p>
-                        <p class="text-gray-500 font-semibold"><i class="fas fa-map-marker-alt"></i> Abuyog, Leyte</p>
-                    </div>
+
+    <!-- Job Detail Section -->
+    <div class="w-2/3 bg-yellow-50 p-6 rounded-lg shadow-lg">
+        <a href="jobs.php" class="flex items-center text-blue-900 hover:text-blue-700 mb-2 hover:no-underline">
+            <i class="fa fa-arrow-left text-xl mr-2"></i> Back to Jobs
+        </a>
+
+        <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center space-x-4">
+                <a href="prof-comp.html">
+                    <img src="img/company.png" alt="Company Logo" class="w-20 h-20 rounded-md">
+                </a>
+                <div>
+                    <h2 class="text-2xl font-bold text-indigo-900"><?= htmlspecialchars($job['job_title']); ?></h2>
+                    <p class="text-gray-500 font-semibold"><i class="fas fa-building mr-1"></i> <?= htmlspecialchars($job['company_name']); ?></p>
+                    <p class="text-gray-500 font-semibold"><i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($job['city_name']); ?></p>
                 </div>
-                <div class="space-x-2">
-                    <!-- <button class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-700">Message</button> -->
-                    <button class="bg-indigo-900 text-white py-2 px-8 rounded hover:bg-blue-800 font-bold" data-toggle="modal" data-target="#applyModal">Apply</button>
-                </div>
             </div>
-            
-            <!-- Job Description -->
-            <div class="mt-4">
-                <h3 class="text-xl font-semibold text-blue-900">Job Description</h3>
-                <p class="text-gray-600 mt-2">
-                    We are looking for a professional Front Desk Officer to oversee all receptionist and secretarial duties at our main entrance desk.
-                    You will perform a range of duties including answering phone calls, managing the switchboard, and maintaining the office budget.
-                    Your central goal is to provide our clients with outstanding customer service and support.
-                    As the “face” of our company, the successful candidate will be presentable and friendly, with outstanding people skills.
-                </p>
-            </div>
-            
-            <!-- Qualifications -->
-            <div class="mt-6">
-                <h3 class="text-xl font-semibold text-blue-900">Qualifications</h3>
-                <p class="text-gray-600 mt-2">
-                    • Proven work experience as a Receptionist, Front Office Representative or similar role<br>
-                    • Proficiency in Microsoft Office Suite<br>
-                    • Hands-on experience with office equipment (e.g., fax machines and printers)<br>
-                    • Professional attitude and appearance<br>
-                    • Solid written and verbal communication skills<br>
-                    • Ability to be resourceful and proactive when issues arise<br>
-                    • Excellent organizational skills
-                </p>
+            <div class="space-x-2">
+                <button class="bg-indigo-900 text-white py-2 px-8 rounded hover:bg-blue-800 font-bold" data-toggle="modal" data-target="#applyModal">Apply</button>
             </div>
         </div>
-        
-        <!-- Sidebar -->
-        <div class="w-1/3 space-y-4">
-    <!-- Date Information -->
-    <div class="bg-white p-4 rounded-lg shadow-lg space-y-4">
-    <!-- Date Posted -->
-    <div class="flex items-center space-x-3">
-        <i class="fas fa-calendar-alt text-blue-600 text-xl"></i>
-        <div>
-            <h4 class="text-lg font-bold text-blue-900">Date Posted</h4>
-            <p class="text-gray-600">Sept. 15, 2024</p>
-        </div>
-    </div>
-    
-    <!-- Deadline -->
-    <div class="flex items-center space-x-3">
-        <i class="fas fa-calendar-check text-red-600 text-xl"></i>
-        <div>
-            <h4 class="text-lg font-bold text-blue-900">Deadline</h4>
-            <p class="text-gray-600">Sept. 30, 2024</p>
-        </div>
-    </div>
+
+        <!-- Job Description -->
+        <div class="mt-4">
+    <h3 class="text-xl font-semibold text-blue-900">Job Description</h3>
+    <p class="text-gray-600 mt-2"><?= nl2br(html_entity_decode($job['description'])); ?></p>
 </div>
 
-    <!-- Salary Information -->
-    <div class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-3">
-        <i class="fas fa-money-bill-wave text-green-600 text-xl"></i>
-        <div>
-            <h4 class="text-lg font-bold text-blue-900">₱18,000 - ₱20,000</h4>
-        </div>
     </div>
 
-    <!-- Job Type Information -->
-    <div class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-3">
-        <i class="fas fa-briefcase text-yellow-600 text-xl"></i>
-        <div>
-            <h4 class="text-lg font-bold text-blue-900">Full-Time • On-site</h4>
+    <!-- Sidebar -->
+    <div class="w-1/3 space-y-4">
+
+        <!-- Date Information -->
+        <div class="bg-white p-4 rounded-lg shadow-lg space-y-4">
+            <!-- Date Posted -->
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-calendar-alt text-blue-600 text-xl"></i>
+                <div>
+                    <h4 class="text-lg font-bold text-blue-900">Date Posted</h4>
+                    <p class="text-gray-600">Sept. 15, 2024</p>
+                </div>
+            </div>
+
+            <!-- Deadline -->
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-calendar-check text-red-600 text-xl"></i>
+                <div>
+                    <h4 class="text-lg font-bold text-blue-900">Deadline</h4>
+                    <p class="text-gray-600"><?= htmlspecialchars($job['deadline']); ?></p>
+                </div>
+            </div>
         </div>
+
+        <!-- Job Information -->
+        <div class="bg-white p-4 rounded-lg shadow-lg space-y-4">
+            <!-- Salary -->
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-dollar-sign text-green-600 text-xl"></i>
+                <div>
+                    <h4 class="text-lg font-bold text-blue-900">Salary</h4>
+                    <p class="text-gray-600">₱<?= number_format($job['min_salary']); ?> - ₱<?= number_format($job['max_salary']); ?></p>
+                </div>
+            </div>
+
+            <!-- Job Type -->
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-briefcase text-indigo-600 text-xl"></i>
+                <div>
+                    <h4 class="text-lg font-bold text-blue-900">Job Type</h4>
+                    <p class="text-gray-600"><?= htmlspecialchars($job['job_type']); ?></p>
+                </div>
+            </div>
+
+            <!-- Job Location -->
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-map-marker-alt text-red-600 text-xl"></i>
+                <div>
+                    <h4 class="text-lg font-bold text-blue-900">Job Location</h4>
+                    <p class="text-gray-600"><?= htmlspecialchars($job['location']); ?></p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

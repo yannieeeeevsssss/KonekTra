@@ -7,6 +7,20 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css"> <!-- Link to your main CSS -->
+    <script src="js/tinymce/tinymce.min.js"></script>
+
+<script>
+  tinymce.init({
+    selector: '#description',
+    height: 300,
+    forced_root_block: false,  // Disable wrapping text in <p> tags
+    force_br_newlines: true,   // Force newlines to be <br> tags
+    force_p_newlines: false,   // Prevent TinyMCE from using <p> tags for newlines
+    convert_newlines_to_brs: true,  // Convert newlines in text to <br> automatically
+    content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }", // Optional style
+  });
+</script>
+  
 </head>
 <body>
     <!-- Header Section -->
@@ -46,43 +60,36 @@
         <div class="main-content">
             <h2>Post A Job</h2>
 
-            <form class="post-job-form">
+            <form class="post-job-form" method="POST" action="post_job.php">
                 <!-- Job Title and Location -->
                 <div class="form-group">
-                    <input type="text" placeholder="Job Title">
-                    <input type="text" placeholder="Location">
+                    <input type="text" name="job_title" id="job_title" placeholder="Job Title" required>
+                    <input type="text" name="location" id="location" placeholder="Location" required>
                 </div>
 
-                <!-- Job Description Image -->
+                <!-- Job Description -->
                 <div class="form-group">
-                    <img src="img/temp.png" alt="Job Description Placeholder">
+                    <textarea class="form-control input-lg" id="description" name="description" placeholder="Job Description"></textarea>
                 </div>
 
                 <!-- Salary Fields -->
                 <div class="form-group">
-                    <input type="text" placeholder="Minimum Salary">
-                    <input type="text" placeholder="Maximum Salary">
+                    <input type="text" name="min_salary" id="min_salary" placeholder="Minimum Salary" required>
+                    <input type="text" name="max_salary" id="max_salary" placeholder="Maximum Salary" required>
                 </div>
 
-                <!-- Job Type Checkboxes -->
-                <div class="form-group job-types">
-                    <label><input type="checkbox"> Task Based</label>
-                    <label><input type="checkbox"> Full-Time</label>
-                    <label><input type="checkbox"> On-Site</label>
-                    <label><input type="checkbox"> Remote</label>
-                </div>
-
-                <!-- Sector and Deadline -->
+                <!-- Job Type and Deadline -->
                 <div class="form-group">
-                    <select>
-                        <option value="">Sector</option>
-                        <option value="IT">Information Technology</option>
-                        <option value="Finance">Finance</option>
-                        <option value="Health">Health</option>
-                        <!-- Add more sectors as needed -->
-                    </select>
-
-                    <input type="date" placeholder="Deadline">
+                    <div class="job-types">
+                        <label><input type="checkbox" name="job_type[]" value="Task Based"> Task Based</label>
+                        <label><input type="checkbox" name="job_type[]" value="Full-Time"> Full-Time</label>
+                        <label><input type="checkbox" name="job_type[]" value="On-Site"> On-Site</label>
+                        <label><input type="checkbox" name="job_type[]" value="Remote"> Remote</label>
+                    </div>
+                    <div>
+                        <label for="deadline">Deadline:</label>
+                        <input type="date" name="deadline" id="deadline" required>
+                    </div>
                 </div>
 
                 <!-- Post Button -->
@@ -92,9 +99,9 @@
     </div>
 
     <!-- Footer -->
-    <footer>
+    <!-- <footer>
         <p>&copy; 2024 KonekTra. All rights reserved.</p>
-    </footer>
+    </footer> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
