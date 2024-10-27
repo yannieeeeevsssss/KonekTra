@@ -1,6 +1,6 @@
 <?php
 // Include your database connection
-require_once 'db.php';
+require_once '../../db.php';
 
 // Start session to retrieve employer info
 session_start();
@@ -60,7 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Execute the query
     if ($stmt->execute()) {
-        echo "Job posted successfully!";
+        // Job posted successfully, redirect to jobs.php
+        header("Location: ../../jobs.php");
+        exit; // Make sure to exit after the header redirect
     } else {
         echo "Error: " . $conn->error;
     }
@@ -72,6 +74,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Close the database connection
 $conn->close();
 ?>
-
-<!-- Redirect to form or add success message -->
-<a href="post.html">Go back to Post Job</a>

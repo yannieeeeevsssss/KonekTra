@@ -171,17 +171,19 @@ CREATE TABLE `jobs` (
   `job_type` set('Task Based', 'Full-Time', 'On-Site', 'Remote') NOT NULL,
   `deadline` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` ENUM('Open', 'Closed', 'Filled') DEFAULT 'Open',
   PRIMARY KEY (`id_jobs`),
   FOREIGN KEY (`id_employer`) REFERENCES `employers`(`id_employer`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
 CREATE TABLE `applications` (
   `id_application` int(11) NOT NULL AUTO_INCREMENT,
-  `id_job` int(11) NOT NULL,
+  `id_jobs` int(11) NOT NULL,
   `id_applicant` int(11) NOT NULL,
   `resume` varchar(255) NOT NULL,
   `cover_letter` text,
-  `status` enum('Pending', 'Approved', 'Rejected') NOT NULL DEFAULT 'Pending',
+  `status` enum('Pending', 'Hired', 'Rejected') NOT NULL DEFAULT 'Pending',
   `applied_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_application`),
   FOREIGN KEY (`id_job`) REFERENCES `jobs`(`id_jobs`) ON DELETE CASCADE,

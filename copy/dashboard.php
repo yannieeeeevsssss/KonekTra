@@ -148,10 +148,10 @@ if (isset($_SESSION['id_user'])) {
     <!-- Redirect based on user type -->
     <?php
       if ($user_type == 'applicant') {
-        header("Location: profile.html");
+        header("Location: applicants/profile.php");
         exit();
       } elseif ($user_type == 'employer') {
-        header("Location: overview.html");
+        header("Location: employer/dashboard.php");
         exit();
       }
     ?>

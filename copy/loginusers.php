@@ -37,7 +37,7 @@ if (isset($_POST['login'])) {
                 header("Location: dashboard.php");
             } else {
                 // Account is not yet approved
-                header("Location: approval-pending.php");
+                header("Location: dashboard.php");
             }
             exit();
         } else {

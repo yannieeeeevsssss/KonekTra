@@ -10,6 +10,7 @@ $default_avatar = 'img/default-avatar.png'; // Default avatar
 $status = '';
 $logged_in = false;
 $profile_image_path = ''; // To store the full profile image path
+$application_status = ''; // To store application status
 
 // Check if the user is logged in
 if (isset($_SESSION['id_user'])) {
@@ -40,11 +41,15 @@ if (isset($_SESSION['id_user'])) {
 
     $stmt->close();
 }
+
+// Check if job ID is provided
 if (isset($_GET['id'])) {
     $job_id = $_GET['id'];
 
+    // Query to fetch job details and number of applicants
     $job_query = "
-        SELECT jobs.*, employers.company_name, employers.email AS employer_email, employers.contactno, cities.city_name 
+        SELECT jobs.*, employers.company_name, employers.email AS employer_email, employers.contactno, cities.city_name,
+        (SELECT COUNT(*) FROM applications WHERE applications.id_jobs = jobs.id_jobs) AS applicant_count
         FROM jobs 
         JOIN employers ON jobs.id_employer = employers.id_employer
         LEFT JOIN cities ON employers.id_city = cities.id_city
@@ -56,6 +61,26 @@ if (isset($_GET['id'])) {
     $stmt->execute();
     $job_result = $stmt->get_result();
     $job = $job_result->fetch_assoc();
+    $stmt->close();
+    
+    // Fetch the application status for the current user (applicant) for the specific job
+    $app_status_query = "
+        SELECT status 
+        FROM applications 
+        WHERE id_jobs = ? 
+        AND id_applicant = (SELECT id_applicant FROM applicants WHERE id_user = ?)
+    ";
+    
+    $stmt = $conn->prepare($app_status_query);
+    $stmt->bind_param("ii", $job_id, $user_id);
+    $stmt->execute();
+    $app_status_result = $stmt->get_result();
+    
+    if ($app_status_result && $app_status_result->num_rows > 0) {
+        $application_data = $app_status_result->fetch_assoc();
+        $application_status = $application_data['status'];
+    }
+
     $stmt->close();
 }
 
@@ -168,9 +193,9 @@ if (!$job) {
 
     <!-- Job Detail Section -->
     <div class="w-2/3 bg-yellow-50 p-6 rounded-lg shadow-lg">
-        <a href="jobs.php" class="flex items-center text-blue-900 hover:text-blue-700 mb-2 hover:no-underline">
-            <i class="fa fa-arrow-left text-xl mr-2"></i> Back to Jobs
-        </a>
+    <a href="javascript:history.back()" class="flex items-center text-blue-900 hover:text-blue-700 mb-2 hover:no-underline">
+    <i class="fa fa-arrow-left text-xl mr-2"></i> Back
+</a>
 
         <div class="flex items-start justify-between mb-4">
             <div class="flex items-center space-x-4">
@@ -184,8 +209,16 @@ if (!$job) {
                 </div>
             </div>
             <div class="space-x-2">
-                <button class="bg-indigo-900 text-white py-2 px-8 rounded hover:bg-blue-800 font-bold" data-toggle="modal" data-target="#applyModal">Apply</button>
-            </div>
+    <?php if (isset($row['user_type'])): ?>
+        <?php if ($row['user_type'] == 'applicant' && (!isset($application_status) || ($application_status != 'Hired' && $application_status != 'Rejected'))): ?>
+            <!-- Button for applicant to apply, only visible if not already Hired or Rejected -->
+            <button class="bg-indigo-900 text-white py-2 px-8 rounded hover:bg-blue-800 font-bold" data-toggle="modal" data-target="#applyModal">Apply</button>
+        <?php elseif ($row['user_type'] == 'employer'): ?>
+            <!-- Button for employer to view applicants -->
+            <a href="employer/viewapplicants.php?id_job=<?php echo $job_id; ?>" class="bg-indigo-900 text-white py-2 px-8 rounded hover:bg-blue-800 hover:no-underline font-bold">View Applicants</a>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>
         </div>
 
         <!-- Job Description -->
@@ -248,6 +281,16 @@ if (!$job) {
                     <p class="text-gray-600"><?= htmlspecialchars($job['location']); ?></p>
                 </div>
             </div>
+
+            <!-- Number of Applicants -->
+    <div class="flex items-center space-x-3">
+        <i class="fas fa-users text-indigo-600 text-xl"></i>
+        <div>
+            <h4 class="text-lg font-bold text-blue-900">Number of Applicants</h4>
+            <p class="text-gray-600"><?= htmlspecialchars($job['applicant_count']); ?> Applicants</p>
+        </div>
+    </div>
+
         </div>
 
     </div>

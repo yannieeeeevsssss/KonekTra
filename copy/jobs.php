@@ -41,6 +41,16 @@ if (isset($_SESSION['id_user'])) {
     $stmt->close();
 }
 
+
+// Fetch id_applicant for the logged-in user
+$applicant_query = "SELECT id_applicant FROM applicants WHERE id_user = ?";
+$stmt = $conn->prepare($applicant_query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($id_applicant);
+$stmt->fetch();
+$stmt->close();
+
 // Fetch the resume for the user
 $query = "SELECT resume FROM applicants WHERE id_user = ?";
 $stmt = $conn->prepare($query);
@@ -82,6 +92,7 @@ $jobs_result = $conn->query($jobs_query);
   <link rel="stylesheet" href="css/style.css">
   <!-- Bootstrap CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
@@ -97,6 +108,8 @@ $jobs_result = $conn->query($jobs_query);
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- FontAwesome-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  
 </head>
 
 <body>
@@ -214,6 +227,20 @@ $jobs_result = $conn->query($jobs_query);
     <?php if ($jobs_result->num_rows > 0) { 
         // Loop through each job and generate a card
         while($job = $jobs_result->fetch_assoc()) { ?>
+
+        <?php
+        // Fetch the application status for the logged-in applicant for this job
+$application_status = null;
+
+$application_query = "SELECT status FROM applications WHERE id_applicant = ? AND id_jobs = ?";
+$stmt = $conn->prepare($application_query);
+$stmt->bind_param("ii", $id_applicant, $job['id_jobs']);
+$stmt->execute();
+$stmt->bind_result($application_status);
+$stmt->fetch();
+$stmt->close();
+
+        ?>
     
         <div class="bg-yellow-50 rounded-lg shadow-lg p-6 relative">
           <!-- Job Info and Logo Section -->
@@ -225,10 +252,10 @@ $jobs_result = $conn->query($jobs_query);
             <div>
               <h4 class="text-2xl font-bold"><?= htmlspecialchars($job['job_title']); ?></h4>
               <p class="text-gray-600">
-                <i class="fas fa-building mr-2"></i> <?= htmlspecialchars($job['company_name']); ?>
+                <i class="fas fa-building mr-1"></i> <?= htmlspecialchars($job['company_name']); ?>
               </p>
               <p class="text-gray-500">
-                <i class="fas fa-map-marker-alt mr-2"></i> <?= htmlspecialchars($job['city_name']); ?>
+                <i class="fas fa-map-marker-alt mr-1"></i> <?= htmlspecialchars($job['city_name']); ?>
               </p>
             </div>
           </div>
@@ -255,8 +282,27 @@ $jobs_result = $conn->query($jobs_query);
           <div class="mt-6 flex justify-between gap-4">
             <a href="viewjob.php?id=<?= $job['id_jobs']; ?>" class="bg-indigo-900 text-white py-2 flex-1 text-center rounded hover:no-underline hover:bg-blue-800">View Job</a>
             <?php if ($logged_in && $row['user_type'] === 'applicant') { ?>
-    <a href="#" class="bg-indigo-900 text-white py-2 flex-1 text-center rounded hover:bg-blue-800 hover:no-underline" data-toggle="modal" data-target="#applyModal">Apply</a>
+    <?php if ($application_status === null) { ?>
+        <!-- If no application exists, show the "Apply" button -->
+        <a href="#" 
+           class="bg-indigo-900 text-white py-2 flex-1 text-center rounded hover:bg-blue-800 hover:no-underline" 
+           data-toggle="modal" 
+           data-target="#applyModal"
+           onclick="openApplyModal(<?= $job['id_jobs']; ?>, <?= $id_applicant; ?>)">
+           Apply
+        </a>
+    <?php } elseif ($application_status === 'Pending') { ?>
+        <!-- If application is pending, disable button and show 'Pending' -->
+        <button class="bg-gray-400 text-white py-2 flex-1 text-center rounded cursor-not-allowed" disabled>Pending</button>
+    <?php } elseif ($application_status === 'Hired') { ?>
+        <!-- If application is accepted, disable button and show 'Accepted' -->
+        <button class="bg-green-500 text-white py-2 flex-1 text-center rounded cursor-not-allowed" disabled>Hired</button>
+    <?php } elseif ($application_status === 'Rejected') { ?>
+        <!-- If application is rejected, disable button and show 'Rejected' -->
+        <button class="bg-red-500 text-white py-2 flex-1 text-center rounded cursor-not-allowed" disabled>Rejected</button>
+    <?php } ?>
 <?php } else { ?>
+    <!-- If not logged in or user is not an applicant, disable the button -->
     <button class="bg-gray-400 text-white py-2 flex-1 text-center rounded cursor-not-allowed" disabled>Apply</button>
 <?php } ?>
           </div>
@@ -281,15 +327,15 @@ $jobs_result = $conn->query($jobs_query);
             </div>
             <div class="modal-body">
                 <form action="applications.php" method="POST" enctype="multipart/form-data">
-                    <!-- Hidden input for job ID -->
-                    <input type="hidden" name="job_id" value="123"> <!-- Replace 123 with dynamic job ID -->
+                    <input type="hidden" name="id_jobs" id="job_id" value="">
+                    <input type="hidden" name="id_applicant" id="applicant_id" value="">
 
                     <div class="form-group">
     <?php if (!empty($resume)): ?>
           
     <label for="resume" class="font-semibold text-blue-900">Upload Resume</label>
         <p class="text-sm text-gray-600">You have already uploaded a resume: 
-            <a href="/uploads/resume/<?php echo htmlspecialchars($resume); ?>" target="_blank" class="text-blue-500 underline">
+            <a href="../copy/uploads/resume/<?php echo htmlspecialchars($resume); ?>" target="_blank" class="text-blue-500 underline">
                 View your resume
             </a>
         </p>
@@ -297,16 +343,15 @@ $jobs_result = $conn->query($jobs_query);
     <?php endif; ?>
     <input type="file" class="form-control-file" id="resume" name="resume">
 </div>
-                    <!-- Cover Letter Textarea -->
+
                     <div class="form-group">
                         <label for="coverLetter" class="font-semibold text-blue-900">Cover Letter</label>
-                        <textarea class="form-control" id="coverLetter" name="cover_letter" rows="3" placeholder="Why should we hire you?" required></textarea>
+                        <textarea class="form-control" id="coverLetter" name="cover_letter" rows="3" required></textarea>
                     </div>
 
-                    <!-- Modal Footer -->
                     <div class="modal-footer">
-                        <button type="button" class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-500 font-bold" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="bg-indigo-900 text-white py-2 px-4 rounded hover:bg-blue-800 font-bold">Apply</button>
+                        <button type="button" class="bg-gray-600 text-white py-2 px-4 rounded" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="bg-indigo-900 text-white py-2 px-4 rounded">Apply</button>
                     </div>
                 </form>
             </div>
@@ -350,9 +395,30 @@ $jobs_result = $conn->query($jobs_query);
       mobileMenu.classList.add('hidden');
     }
   });
+
+  function openApplyModal(jobId, applicantId) {
+    console.log("Job ID passed: ", jobId);  
+    console.log("Applicant ID passed: ", applicantId);  
+
+    document.getElementById('job_id').value = jobId;
+    document.getElementById('applicant_id').value = applicantId;
+
+    // Double check if values are set correctly after updating
+    console.log("Hidden Job ID: ", document.getElementById('job_id').value);
+    console.log("Hidden Applicant ID: ", document.getElementById('applicant_id').value);
+
+    $('#applyModal').modal('show');
+}
+
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Popper.js for Bootstrap -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- jQuery (required for Bootstrap 4) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/flowbite@1.5.1/dist/flowbite.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>
 </html>
